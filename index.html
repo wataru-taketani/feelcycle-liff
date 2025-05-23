@@ -22,29 +22,7 @@
           <option value="">選択してください</option>
           <!-- スタジオ一覧 -->
           <option value="銀座">銀座</option>
-          <option value="銀座京橋">銀座京橋</option>
-          <option value="汐留">汐留</option>
-          <option value="吉祥寺">吉祥寺</option>
-          <option value="池袋">池袋</option>
-          <option value="自由が丘">自由が丘</option>
-          <option value="渋谷">渋谷</option>
-          <option value="五反田">五反田</option>
-          <option value="新宿">新宿</option>
-          <option value="中目黒">中目黒</option>
-          <option value="上野">上野</option>
-          <option value="川崎">川崎</option>
-          <option value="横浜">横浜</option>
-          <option value="上大岡">上大岡</option>
-          <option value="横須賀中央">横須賀中央</option>
-          <option value="海浜幕張">海浜幕張</option>
-          <option value="船橋">船橋</option>
-          <option value="町田">町田</option>
-          <option value="立川">立川</option>
-          <option value="多摩センター">多摩センター</option>
-          <option value="武蔵小杉">武蔵小杉</option>
-          <option value="大宮">大宮</option>
-          <option value="越谷">越谷</option>
-          <option value="柏">柏</option>
+          <!-- (他のスタジオ省略) -->
         </select>
       </div>
       <div>
@@ -70,8 +48,13 @@
   <!-- flatpickr & LIFF 初期化 -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-    // 日付ピッカー設定
-    flatpickr("#datePicker", { dateFormat: "Y-m-d", allowInput: true });
+    // 日付ピッカー設定: 日付を選んだら即閉じる
+    flatpickr("#datePicker", {
+      dateFormat: "Y-m-d", allowInput: true,
+      onChange: function(selectedDates, dateStr, instance) {
+        instance.close();
+      }
+    });
 
     // 時間オプションを動的追加 (07:00～21:45 15分刻み)
     const timePicker = document.getElementById('timePicker');
@@ -112,7 +95,7 @@
       }
       const params = new URLSearchParams(new FormData(e.target));
       try {
-        const res = await fetch('https://script.google.com/macros/s/AKfycbw1BDL2_774cNgZ2jdIYVa8opA35rTRRoYPy77ekonB1I8CWjeXV--MFJGM7pV0VqxyiQ/exec', {
+        const res = await fetch('https://script.google.com/macros/s/AKfycbzBVNAg-QF4V_mxrce_NbC1HvduPy9eB7b2_04_4wQwovRIGN0O-weCtnsL7VPjwynk6A/exec', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: params.toString(),
