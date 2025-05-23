@@ -45,7 +45,7 @@
     </label>
     <br><br>
     <label>時間:<br>
-      <input type="time" id="timePicker" required>
+      <input type="time" id="timePicker" step="900" required>
     </label>
     <br><br>
     <button type="submit">登録</button>
@@ -86,7 +86,6 @@
         alert('userId取得失敗。LINEアプリから開いてください。');
         return;
       }
-      // 送信先GASのURLに書き換えてください
       await fetch('https://script.google.com/macros/s/AKfycbw0FaYNrDXKQUTH6bvEYoAwpGdyP0b9JDVF984cjFNReWilXCMQ7dApMtiqDtxx47jBYQ/exec', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
