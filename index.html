@@ -2,14 +2,14 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>FEELCYCLE予約チェック【デバッグ用】</title>
+  <title>FEELCYCLE予約チェック</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- LIFF SDK -->
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <!-- flatpickr CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <style>
-    /* ボタン・フォームの見た目はお好みで */
+    /* ボタン・フォームの見た目 */
     #submitBtn {
       width: 90vw; max-width: 400px; height: 56px;
       font-size: 1.3rem; background: #228be6; color: #fff;
@@ -19,26 +19,38 @@
     }
     #submitBtn:active { background: #1864ab; }
     form { max-width: 420px; margin: 0 auto; padding-bottom: 120px; }
-    #debug-info {
-      background: #f3f3f3; border: 1px solid #eee;
-      border-radius: 10px; padding: 10px 15px; margin: 20px auto;
-      max-width: 440px; font-size: .97rem; line-height: 1.7;
-      word-break: break-all;
-    }
-    #debug-info strong { color: #228be6; }
   </style>
 </head>
 <body>
-  <h2>FEELCYCLE レッスン登録【デバッグ用】</h2>
-  
+  <h2>FEELCYCLE レッスン登録</h2>
   <form id="reserveForm">
     <label>スタジオ:<br>
       <select id="studio" name="studio" required>
         <option value="">選択してください</option>
         <option value="銀座">銀座</option>
+        <option value="銀座京橋">銀座京橋</option>
         <option value="汐留">汐留</option>
         <option value="吉祥寺">吉祥寺</option>
-        <!-- 他のスタジオも同様に -->
+        <option value="池袋">池袋</option>
+        <option value="自由が丘">自由が丘</option>
+        <option value="渋谷">渋谷</option>
+        <option value="五反田">五反田</option>
+        <option value="新宿">新宿</option>
+        <option value="中目黒">中目黒</option>
+        <option value="上野">上野</option>
+        <option value="川崎">川崎</option>
+        <option value="横浜">横浜</option>
+        <option value="上大岡">上大岡</option>
+        <option value="横須賀中央">横須賀中央</option>
+        <option value="海浜幕張">海浜幕張</option>
+        <option value="船橋">船橋</option>
+        <option value="町田">町田</option>
+        <option value="立川">立川</option>
+        <option value="多摩センター">多摩センター</option>
+        <option value="武蔵小杉">武蔵小杉</option>
+        <option value="大宮">大宮</option>
+        <option value="越谷">越谷</option>
+        <option value="柏">柏</option>
       </select>
     </label>
     <br><br>
@@ -50,46 +62,82 @@
       <select id="timePicker" name="time" required>
         <option value="">選択してください</option>
         <option value="07:00">07:00</option>
+        <option value="07:15">07:15</option>
+        <option value="07:30">07:30</option>
+        <option value="07:45">07:45</option>
         <option value="08:00">08:00</option>
+        <option value="08:15">08:15</option>
+        <option value="08:30">08:30</option>
+        <option value="08:45">08:45</option>
+        <option value="09:00">09:00</option>
+        <option value="09:15">09:15</option>
+        <option value="09:30">09:30</option>
+        <option value="09:45">09:45</option>
+        <option value="10:00">10:00</option>
+        <option value="10:15">10:15</option>
+        <option value="10:30">10:30</option>
+        <option value="10:45">10:45</option>
+        <option value="11:00">11:00</option>
+        <option value="11:15">11:15</option>
+        <option value="11:30">11:30</option>
+        <option value="11:45">11:45</option>
+        <option value="12:00">12:00</option>
+        <option value="12:15">12:15</option>
+        <option value="12:30">12:30</option>
+        <option value="12:45">12:45</option>
+        <option value="13:00">13:00</option>
+        <option value="13:15">13:15</option>
+        <option value="13:30">13:30</option>
+        <option value="13:45">13:45</option>
+        <option value="14:00">14:00</option>
+        <option value="14:15">14:15</option>
+        <option value="14:30">14:30</option>
+        <option value="14:45">14:45</option>
+        <option value="15:00">15:00</option>
+        <option value="15:15">15:15</option>
+        <option value="15:30">15:30</option>
+        <option value="15:45">15:45</option>
+        <option value="16:00">16:00</option>
+        <option value="16:15">16:15</option>
+        <option value="16:30">16:30</option>
+        <option value="16:45">16:45</option>
+        <option value="17:00">17:00</option>
+        <option value="17:15">17:15</option>
+        <option value="17:30">17:30</option>
+        <option value="17:45">17:45</option>
+        <option value="18:00">18:00</option>
+        <option value="18:15">18:15</option>
+        <option value="18:30">18:30</option>
+        <option value="18:45">18:45</option>
         <option value="19:00">19:00</option>
-        <!-- 他の時間も同様に -->
+        <option value="19:15">19:15</option>
+        <option value="19:30">19:30</option>
+        <option value="19:45">19:45</option>
+        <option value="20:00">20:00</option>
+        <option value="20:15">20:15</option>
+        <option value="20:30">20:30</option>
+        <option value="20:45">20:45</option>
+        <option value="21:00">21:00</option>
+        <option value="21:15">21:15</option>
+        <option value="21:30">21:30</option>
       </select>
     </label>
-    <!-- LIFF から取得する userId を隠しフィールドで -->
     <input type="hidden" id="userId" name="userId">
     <br>
     <button type="submit" id="submitBtn">登録</button>
   </form>
 
-  <div id="debug-info">
-    <strong>デバッグ情報：</strong><br>
-    <div id="debug-msg">LIFF 初期化待ち…</div>
-  </div>
-
   <!-- flatpickr 本体 -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-    const DEBUG = true;
-    const debugMsg = msg => {
-      if (DEBUG) document.getElementById('debug-msg').innerText = msg;
-    };
-
-    // 日期ピッカーを YYYY-MM-DD 形式に
-    flatpickr("#datePicker", {
-      dateFormat: "Y-m-d",
-      allowInput: true,
-    });
-
     let liffReady = false;
+    flatpickr("#datePicker", { dateFormat: "Y-m-d", allowInput: true });
 
     window.onload = () => {
-      debugMsg('LIFF 初期化中…');
       liff.init({ liffId: "2007455412-YP5jEbzK" })
         .then(() => {
           liffReady = true;
-          debugMsg('LIFF 初期化完了。ログイン状態チェック中…');
           if (!liff.isLoggedIn()) {
-            debugMsg('未ログイン→ログインページへ');
             liff.login();
           } else {
             return liff.getProfile();
@@ -98,11 +146,7 @@
         .then(profile => {
           if (profile) {
             document.getElementById('userId').value = profile.userId;
-            debugMsg('userId 取得: ' + profile.userId);
           }
-        })
-        .catch(err => {
-          debugMsg('LIFF エラー: ' + err.toString());
         });
     };
 
@@ -113,7 +157,6 @@
         return;
       }
       const form = new FormData(e.target);
-      debugMsg('送信内容: ' + [...form.entries()].map(([k,v])=>`${k}=${v}`).join(', '));
       try {
         await fetch('https://script.google.com/macros/s/AKfycbzNTOGnCO68SVkklvdqd5lyqB2cllZqgK_krhYkaHbnxmcTw5F7h8L98RDpRzo0YPmOOw/exec', {
           method: 'POST',
@@ -122,11 +165,9 @@
           body: new URLSearchParams(form).toString()
         });
         alert('登録リクエスト送信完了');
-        debugMsg('送信完了');
         if (liff.closeWindow) liff.closeWindow();
       } catch (err) {
         alert('送信失敗: ' + err.toString());
-        debugMsg('送信失敗: ' + err.toString());
       }
     });
   </script>
