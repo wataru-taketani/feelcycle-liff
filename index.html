@@ -192,7 +192,7 @@
         alert('userId取得失敗。LINEアプリから開いてください。');
         return;
       }
-      await fetch('https://script.google.com/macros/s/AKfycbw0FaYNrDXKQUTH6bvEYoAwpGdyP0b9JDVF984cjFNReWilXCMQ7dApMtiqDtxx47jBYQ/exec', {
+      await fetch('https://script.google.com/macros/s/AKfycbwzSOu2UWcQdlZ63YJnvLHaM_8MDi-8fsp1up0C_2LtQ2MIjh3ppT2nTIMnQZLTANJcvw/exec', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ studio, date, time, userId })
