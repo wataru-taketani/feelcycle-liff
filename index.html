@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FEELCYCLE予約チェック</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- flatpickrカレンダー用 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+  <h2>FEELCYCLE レッスン登録</h2>
+  <form id="reserveForm">
+    <label>スタジオ:<br>
+      <select id="studio" required>
+        <option value="">選択してください</option>
+        <option value="銀座">銀座</option>
+        <option value="銀座京橋">銀座京橋</option>
+        <option value="汐留">汐留</option>
+        <option value="吉祥寺">吉祥寺</option>
+        <option value="池袋">池袋</option>
+        <option value="自由が丘">自由が丘</option>
+        <option value="渋谷">渋谷</option>
+        <option value="五反田">五反田</option>
+        <option value="新宿">新宿</option>
+        <option value="中目黒">中目黒</option>
+        <option value="上野">上野</option>
+        <option value="川崎">川崎</option>
+        <option value="横浜">横浜</option>
+        <option value="上大岡">上大岡</option>
+        <option value="横須賀中央">横須賀中央</option>
+        <option value="海浜幕張">海浜幕張</option>
+        <option value="船橋">船橋</option>
+        <option value="町田">町田</option>
+        <option value="立川">立川</option>
+        <option value="多摩センター">多摩センター</option>
+        <option value="武蔵小杉">武蔵小杉</option>
+        <option value="大宮">大宮</option>
+        <option value="越谷">越谷</option>
+        <option value="柏">柏</option>
+      </select>
+    </label>
+    <br><br>
+    <label>日付:<br>
+      <input type="text" id="datePicker" placeholder="日付を選択" required>
+    </label>
+    <br><br>
+    <label>時間:<br>
+      <input type="time" id="timePicker" required>
+    </label>
+    <br><br>
+    <button type="submit">登録</button>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    // flatpickrでMM/DD形式の入力にする（年をつけず）
+    flatpickr("#datePicker", {
+      dateFormat: "m/d",
+      allowInput: true,
+    });
+
+    // LIFF初期化してuserIdを取得する
+    let userId = "";
+    window.onload = function () {
+      liff.init({
+        liffId: "2007455412-YP5jEbzK" // 例: "2007455410-5RBZMAoM"
+      }).then(() => {
+        if (!liff.isLoggedIn()) {
+          liff.login();
+        } else {
+          liff.getProfile().then(function (profile) {
+            userId = profile.userId;
+          });
+        }
+      }).catch(function (err) {
+        alert('LIFF初期化失敗: ' + err);
+      });
+    }
+
+    document.getElementById('reserveForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const studio = document.getElementById('studio').value;
+      const date = document.getElementById('datePicker').value;
+      const time = document.getElementById('timePicker').value;
+      if (!userId) {
+        alert('userId取得失敗。LINEアプリから開いてください。');
+        return;
+      }
+      // 送信先GASのURLに書き換えてください
+      await fetch('https://script.google.com/macros/s/AKfycbw0FaYNrDXKQUTH6bvEYoAwpGdyP0b9JDVF984cjFNReWilXCMQ7dApMtiqDtxx47jBYQ/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ studio, date, time, userId })
+      });
+      alert('送信しました！');
+      // LIFF環境なら自動でウィンドウを閉じる
+      if (window.liff && window.liff.closeWindow) liff.closeWindow();
+    }
+  </script>
+</body>
+</html>
