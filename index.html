@@ -19,10 +19,30 @@
         <label for="studio" class="block text-sm font-medium text-gray-700 mb-1">スタジオ</label>
         <select id="studio" name="studio" required
           class="block w-full border border-gray-300 bg-white rounded-lg py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-          <option value="">選択してください</option>
-          <!-- スタジオ一覧 -->
           <option value="銀座">銀座</option>
-          <!-- (他のスタジオ省略) -->
+          <option value="銀座京橋">銀座京橋</option>
+          <option value="汐留">汐留</option>
+          <option value="吉祥寺">吉祥寺</option>
+          <option value="池袋">池袋</option>
+          <option value="自由が丘">自由が丘</option>
+          <option value="渋谷">渋谷</option>
+          <option value="五反田">五反田</option>
+          <option value="新宿">新宿</option>
+          <option value="中目黒">中目黒</option>
+          <option value="上野">上野</option>
+          <option value="川崎">川崎</option>
+          <option value="横浜">横浜</option>
+          <option value="上大岡">上大岡</option>
+          <option value="横須賀中央">横須賀中央</option>
+          <option value="海浜幕張">海浜幕張</option>
+          <option value="船橋">船橋</option>
+          <option value="町田">町田</option>
+          <option value="立川">立川</option>
+          <option value="多摩センター">多摩センター</option>
+          <option value="武蔵小杉">武蔵小杉</option>
+          <option value="大宮">大宮</option>
+          <option value="越谷">越谷</option>
+          <option value="柏">柏</option>
         </select>
       </div>
       <div>
@@ -48,9 +68,10 @@
   <!-- flatpickr & LIFF 初期化 -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-    // 日付ピッカー設定: 日付を選んだら即閉じる
+    // 日付ピッカー設定: 日付を選択したら自動で閉じる
     flatpickr("#datePicker", {
-      dateFormat: "Y-m-d", allowInput: true,
+      dateFormat: "Y-m-d",
+      allowInput: true,
       onChange: function(selectedDates, dateStr, instance) {
         instance.close();
       }
@@ -100,9 +121,7 @@
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: params.toString(),
         });
-        if (!res.ok) {
-          throw new Error(`HTTP status ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP status ${res.status}`);
         alert('登録リクエスト送信完了');
         liff.closeWindow();
       } catch (err) {
