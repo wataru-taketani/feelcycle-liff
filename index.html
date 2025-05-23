@@ -7,7 +7,7 @@
   <!-- Tailwind CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <!-- LIFF SDK -->
-  <script src="https://static.line-scdn.net/liff/edge/2.sdk.js"></script>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <!-- flatpickr CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
@@ -56,12 +56,6 @@
         <select id="timePicker" name="time" required
           class="block w-full border border-gray-300 bg-white rounded-lg py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
           <option value="">選択してください</option>
-          <!-- 時間オプション -->
-          ${[...Array(15)].map((_,i)=>{
-            const hour = 7 + Math.floor(i/4);
-            const min = ['00','15','30','45'][i%4];
-            return `<option value=\"${hour.toString().padStart(2,'0')}:${min}\">${hour.toString().padStart(2,'0')}:${min}</option>`;
-          }).join('')}
         </select>
       </div>
       <input type="hidden" id="userId" name="userId">
@@ -75,9 +69,22 @@
   <!-- flatpickr & LIFF 初期化 -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
+    // 日付ピッカー設定
     flatpickr("#datePicker", { dateFormat: "Y-m-d", allowInput: true });
-    let liffReady = false;
 
+    // 時間オプションを動的追加 (07:00～21:45 15分刻み)
+    const timePicker = document.getElementById('timePicker');
+    for (let h = 7; h <= 21; h++) {
+      ['00','15','30','45'].forEach(min => {
+        const val = String(h).padStart(2, '0') + ':' + min;
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.textContent = val;
+        timePicker.appendChild(opt);
+      });
+    }
+
+    let liffReady = false;
     window.onload = () => {
       liff.init({ liffId: "2007455412-YP5jEbzK" })
         .then(() => {
@@ -93,12 +100,12 @@
     document.getElementById('reserveForm').addEventListener('submit', async e => {
       e.preventDefault();
       if (!liffReady) return alert('LIFF 未初期化');
-      const form = new URLSearchParams(new FormData(e.target));
+      const params = new URLSearchParams(new FormData(e.target));
       try {
         await fetch('https://script.google.com/macros/s/AKfycbzNTOGnCO68SVkklvdqd5lyqB2cllZqgK_krhYkaHbnxmcTw5F7h8L98RDpRzo0YPmOOw/exec', {
           method: 'POST', mode: 'no-cors',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: form.toString(),
+          body: params.toString(),
         });
         alert('登録リクエスト送信完了');
         liff.closeWindow();
