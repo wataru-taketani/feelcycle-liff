@@ -20,6 +20,7 @@
         <select id="studio" name="studio" required
           class="block w-full border border-gray-300 bg-white rounded-lg py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
           <option value="">選択してください</option>
+          <!-- スタジオ一覧 -->
           <option value="銀座">銀座</option>
           <option value="銀座京橋">銀座京橋</option>
           <option value="汐留">汐留</option>
@@ -89,28 +90,41 @@
       liff.init({ liffId: "2007455412-YP5jEbzK" })
         .then(() => {
           liffReady = true;
-          if (!liff.isLoggedIn()) liff.login();
-          else return liff.getProfile();
+          if (!liff.isLoggedIn()) {
+            liff.login();
+          } else {
+            return liff.getProfile();
+          }
         })
         .then(profile => {
-          if (profile) document.getElementById('userId').value = profile.userId;
-        });
+          if (profile) {
+            document.getElementById('userId').value = profile.userId;
+          }
+        })
+        .catch(err => console.error(err));
     };
 
     document.getElementById('reserveForm').addEventListener('submit', async e => {
       e.preventDefault();
-      if (!liffReady) return alert('LIFF 未初期化');
+      if (!liffReady) {
+        alert('LIFF 未初期化');
+        return;
+      }
       const params = new URLSearchParams(new FormData(e.target));
       try {
-        await fetch('https://script.google.com/macros/s/AKfycbzBVNAg-QF4V_mxrce_NbC1HvduPy9eB7b2_04_4wQwovRIGN0O-weCtnsL7VPjwynk6A/exec', {
-          method: 'POST', mode: 'no-cors',
+        const res = await fetch('https://script.google.com/macros/s/AKfycbzBVNAg-QF4V_mxrce_NbC1HvduPy9eB7b2_04_4wQwovRIGN0O-weCtnsL7VPjwynk6A/exec', {
+          method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: params.toString(),
         });
+        if (!res.ok) {
+          throw new Error(`HTTP status ${res.status}`);
+        }
         alert('登録リクエスト送信完了');
         liff.closeWindow();
       } catch (err) {
-        alert('送信失敗: ' + err);
+        alert('送信失敗: ' + err.message);
+        console.error(err);
       }
     });
   </script>
